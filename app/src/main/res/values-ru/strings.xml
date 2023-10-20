@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Участки на торгах</string>
+    <string name="plus">Сложить</string>
+    <string name="initial_output">Результат вычислений появится здесь.</string>
+</resources>

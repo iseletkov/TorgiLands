@@ -2,52 +2,33 @@ package ru.psu.mobile.torgilands
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-
-fun test(
-    a1 : String,
-    a2 : String = "hhhhhh"
-) : String
-{
-    return a1+a2
-}
+import android.view.View
+import ru.psu.mobile.torgilands.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    var f : Toast?
-        = null
+//    lateinit var textViewOutput : TextView
+//    lateinit var editTextValue1 : EditText
+//    lateinit var editTextValue2 : EditText
 
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val x= 0.0
-        val y = 123
-        var z = 345
-        var str = "adawdawdawd"
-        var name = "Иван"
-        var str2 = ""
+//        textViewOutput = findViewById(R.id.textView2)
+//        editTextValue1 = findViewById(R.id.editTextValue1)
+//        editTextValue2 = findViewById(R.id.editTextValue2)
+        binding.textView2.text = getString(R.string.initial_output)
 
-        var lst1 = listOf("awd", "adawd", "adawdsfsef")
-        var lst2 = mutableListOf("awd", null, "adawd", "gggggg", null, "adawdsfsef", "ffffff")
+    }
 
-        val message = lst2
-            .filterNotNull()
-            .filter {
-                it.startsWith("a") }
-            .map {
-                "123$it"
-            }
-            .joinToString(separator = "; ")
-
-
-        Toast.makeText(
-            this,
-            message,
-            Toast.LENGTH_LONG
-        ).show()
-
-
-
+    fun onButtonPlusClick(view : View)
+    {
+        val val1 = binding.editTextValue1.text.toString().toDouble()
+        val val2 = binding.editTextValue2.text.toString().toDouble()
+        binding.textView2.text = ""+(val1+val2)
     }
 }
