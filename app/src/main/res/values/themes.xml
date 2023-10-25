@@ -7,7 +7,7 @@
 
     <style name="Theme.TorgiLands" parent="Base.Theme.TorgiLands" />
 
-    <style name="MyCustomButtonStyle" parent="Widget.Material3.Button.TextButton" >
+    <style name="MyCustomButtonStyle" parent="Widget.Material3.Button.TextButton">
         <item name="cornerRadius">10dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:backgroundTint">@color/primary</item>

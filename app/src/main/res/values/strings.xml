@@ -2,4 +2,5 @@
     <string name="app_name">TorgiLands</string>
     <string name="plus">Plus</string>
     <string name="initial_output">Output will be here.</string>
+    <string name="title_activity_cland_list">CActivityLandList</string>
 </resources>
