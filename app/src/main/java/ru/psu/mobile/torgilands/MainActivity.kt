@@ -3,6 +3,7 @@ package ru.psu.mobile.torgilands
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import ru.psu.mobile.torgilands.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,16 @@ class MainActivity : AppCompatActivity() {
 //        editTextValue1 = findViewById(R.id.editTextValue1)
 //        editTextValue2 = findViewById(R.id.editTextValue2)
         binding.textView2.text = getString(R.string.initial_output)
+
+        binding.buttonPlus.setOnLongClickListener {
+            Toast.makeText(
+                this,
+                "Долгое нажатие!",
+                Toast.LENGTH_LONG
+
+            ).show()
+            return@setOnLongClickListener true
+        }
 
     }
 
