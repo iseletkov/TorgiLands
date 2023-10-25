@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#4f2372</color>
+    <color name="primary" tools:override="true">#4f2372</color>
     <color name="secondary">#fde1bd</color>
-    <color name="test">
-        <selector xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:alpha="..." android:color="@color/black" android:state_focused="true"/>
-            <item android:alpha="..." android:color="@color/white" android:state_hovered="true"/>
-            <item android:alpha="..." android:color="@color/primary" android:state_enabled="false"/>
-            <item android:alpha="..." android:color="@color/secondary"/>  <!-- unfocused -->
-        </selector>
-    </color>
+    <color name="primary_override" tools:override="true">@color/primary</color>
 </resources>
