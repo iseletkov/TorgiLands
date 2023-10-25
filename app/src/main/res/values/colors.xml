@@ -4,4 +4,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#4f2372</color>
     <color name="secondary">#fde1bd</color>
+    <color name="test">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:alpha="..." android:color="@color/black" android:state_focused="true"/>
+            <item android:alpha="..." android:color="@color/white" android:state_hovered="true"/>
+            <item android:alpha="..." android:color="@color/primary" android:state_enabled="false"/>
+            <item android:alpha="..." android:color="@color/secondary"/>  <!-- unfocused -->
+        </selector>
+    </color>
 </resources>
