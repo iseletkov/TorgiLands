@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
     fun onButtonPlusClick(view : View)
     {
-        val val1 = binding.editTextValue1.text.toString().toDouble()
-        val val2 = binding.editTextValue2.text.toString().toDouble()
+        val val1 = binding.editTextValue1.editText?.text.toString().toDouble()
+        val val2 = binding.editTextValue2.editText?.text.toString().toDouble()
         binding.textView2.text = ""+(val1+val2)
     }
 }
