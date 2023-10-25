@@ -6,4 +6,15 @@
     </style>
 
     <style name="Theme.TorgiLands" parent="Base.Theme.TorgiLands" />
+
+    <style name="MyCustomButton" parent="Widget.Material3.Button.TextButton">
+<!--        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>-->
+<!--        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>-->
+<!--        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>-->
+        <item name="cornerRadius">10dp</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="iconTint">@color/white</item>
+    </style>
 </resources>
