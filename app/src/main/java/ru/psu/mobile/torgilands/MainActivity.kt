@@ -2,6 +2,9 @@ package ru.psu.mobile.torgilands
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import ru.psu.mobile.torgilands.databinding.ActivityMainBinding
@@ -41,5 +44,33 @@ class MainActivity : AppCompatActivity() {
         val val1 = binding.editTextValue1.editText?.text.toString().toDouble()
         val val2 = binding.editTextValue2.editText?.text.toString().toDouble()
         binding.textView2.text = ""+(val1+val2)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.activity_calculator_menu, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection.
+        return when (item.itemId) {
+            R.id.settings -> {
+                Toast.makeText(
+                    this,
+                    "Нажата кнопка настроек",
+                    Toast.LENGTH_LONG
+                ).show()
+                true
+            }
+            R.id.help -> {
+                Toast.makeText(
+                    this,
+                    "Нажата кнопка справки",
+                    Toast.LENGTH_LONG
+                ).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
