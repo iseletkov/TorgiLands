@@ -65,7 +65,10 @@ class CActivityLandList : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    var mytext by remember { mutableStateOf("") }
+    var value1 by remember { mutableStateOf("") }
+    var value2 by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
+
     //var text = mutableStateOf("")
     //var text = ""
     Box(
@@ -83,15 +86,11 @@ fun GreetingPreview() {
 
         ) {
             OutlinedTextField(
-                value = mytext,
-                onValueChange = { mytext = it },
-                label = { Text("Label") },
+                value = value1,
+                onValueChange = { value1 = it },
+                label = { Text("Число 1") },
                 modifier = Modifier
                     .fillMaxWidth(),
-//                .border(
-//                    width = 2.dp,
-//                    color = Primary
-//                ),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Primary,
                     unfocusedBorderColor = Primary,
@@ -103,9 +102,9 @@ fun GreetingPreview() {
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
-                value = mytext,
-                onValueChange = { mytext = it },
-                label = { Text("Label") },
+                value = value2,
+                onValueChange = { value2 = it },
+                label = { Text("Число 2") },
                 modifier = Modifier
                     .fillMaxWidth(),
                 textStyle = LocalTextStyle.current.copy(
@@ -119,7 +118,26 @@ fun GreetingPreview() {
                     .height(50.dp)
             ){
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        val val1 : Double= try{
+                            value1.toDouble()
+                        }
+                        catch (e: Exception)
+                        {
+                            //Toast.
+                            0.0
+                        }
+                        val val2 = try{
+                            value2.toDouble()
+                        }
+                        catch (e: Exception)
+                        {
+                            //Toast.
+                            0.0
+                        }
+                        result = ""+(val1+val2)
+
+                    },
                     colors = ButtonDefaults
                         .buttonColors
                             (
@@ -173,7 +191,7 @@ fun GreetingPreview() {
             }
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = mytext
+                text = result
             )
         }
         Image(
