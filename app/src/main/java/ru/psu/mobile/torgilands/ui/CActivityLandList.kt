@@ -1,10 +1,13 @@
 package ru.psu.mobile.torgilands.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -57,15 +60,24 @@ import ru.psu.mobile.torgilands.ui.theme.Primary
 import ru.psu.mobile.torgilands.ui.theme.Secondary
 
 class CActivityLandList : ComponentActivity() {
+    lateinit var resultLauncher : ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyPreview()
         }
+
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data = result.data?.extras
+
+                val x = 123
+            }
+        }
     }
     fun test()
     {
-
     }
 }
 
@@ -77,6 +89,9 @@ fun MyTopBar(
 
     val activity = LocalContext.current as CActivityLandList
     var menuState by remember { mutableStateOf(false) }
+
+
+
     TopAppBar(
         title = {
             Text(
@@ -108,9 +123,7 @@ fun MyTopBar(
                             // you can add values(if any) to pass to the next class or avoid using `.apply`
                             putExtra("MY_PARAM1", "123123123")
                         }
-
-                        activity.startActivity(intent)
-
+                        activity.resultLauncher.launch(intent)
                     },
                     leadingIcon = {
                         Icon(

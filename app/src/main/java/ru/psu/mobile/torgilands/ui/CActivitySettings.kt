@@ -1,8 +1,10 @@
 package ru.psu.mobile.torgilands.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -12,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ru.psu.mobile.torgilands.ui.ui.theme.TorgiLandsTheme
+
 
 class CActivitySettings : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +30,7 @@ class CActivitySettings : ComponentActivity() {
                 }
             }
         }
-        val bundle = getIntent().getExtras();
+        val bundle = intent.extras
         bundle?.let{
             Toast.makeText(
                 this,
@@ -41,7 +44,17 @@ class CActivitySettings : ComponentActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
+
+        onBackPressedDispatcher.addCallback(this /* lifecycle owner */)
+        {
+            // Back is pressed... Finishing the activity
+            val data = Intent()
+            data.putExtra("MY_PARAM_2","streetd;ad ada lwdname");
+            setResult(RESULT_OK,data);
+            finish()
+        }
     }
+
 }
 
 @Composable
