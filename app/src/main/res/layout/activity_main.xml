@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     android:background="@color/secondary"
     >
 
@@ -27,6 +27,7 @@
             style="@style/MyCustomInputStyle"
             >
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextValue11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal|numberSigned"

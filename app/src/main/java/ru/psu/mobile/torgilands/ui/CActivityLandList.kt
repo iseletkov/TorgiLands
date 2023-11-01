@@ -1,14 +1,13 @@
-package ru.psu.mobile.torgilands
+package ru.psu.mobile.torgilands.ui
 
-import android.graphics.Paint
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,17 +22,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,39 +45,97 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.ui.theme.Primary
 import ru.psu.mobile.torgilands.ui.theme.Secondary
-import ru.psu.mobile.torgilands.ui.theme.TorgiLandsTheme
 
 class CActivityLandList : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            GreetingPreview()
+            MyPreview()
         }
+    }
+    fun test()
+    {
+
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
-@Preview(showBackground = true)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GreetingPreview() {
+fun MyTopBar(
+)
+{
+
+    val activity = LocalContext.current as CActivityLandList
+    var menuState by remember { mutableStateOf(false) }
+    TopAppBar(
+        title = {
+            Text(
+                "Участки на торгах",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        actions = {
+            IconButton(onClick = {
+                menuState = true
+            }) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Меню"
+                )
+            }
+            DropdownMenu(
+                expanded = menuState,
+                onDismissRequest = { menuState = false }
+            ) {
+                DropdownMenuItem(
+                    text = { Text("Настройки") },
+                    onClick = {
+                        val intent = Intent(
+                            activity,
+                            CActivitySettings::class.java
+                        ).apply {
+                            // you can add values(if any) to pass to the next class or avoid using `.apply`
+                            putExtra("MY_PARAM1", "123123123")
+                        }
+
+                        activity.startActivity(intent)
+
+                    },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Outlined.Settings,
+                            contentDescription = "Настройки"
+                        )
+                    })
+            }
+        }
+    )
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun content(
+    innerPadding : PaddingValues
+)
+{
     var value1 by remember { mutableStateOf("") }
     var value2 by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
-
-    //var text = mutableStateOf("")
-    //var text = ""
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(innerPadding)
             .background(
                 color = Secondary
             )
@@ -203,6 +265,21 @@ fun GreetingPreview() {
                 .height(180.dp)
         )
     }
+}
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@Preview(showBackground = true)
+@Composable
+fun MyPreview() {
+
+    Scaffold(
+        topBar = { MyTopBar() },
+        content = { innerPadding ->
+            content(innerPadding = innerPadding)
+        }
+    )
+
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package ru.psu.mobile.torgilands
+package ru.psu.mobile.torgilands.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +27,31 @@ class MainActivity : AppCompatActivity() {
 //        editTextValue1 = findViewById(R.id.editTextValue1)
 //        editTextValue2 = findViewById(R.id.editTextValue2)
         binding.textView2.text = getString(R.string.initial_output)
+
+        binding.buttonMinus.setOnLongClickListener {
+            Toast.makeText(
+                this,
+                "Долгое нажатие на кнопку минус!",
+                Toast.LENGTH_LONG
+
+            ).show()
+            true
+        }
+        binding.buttonMultiply.setOnClickListener {
+            Toast.makeText(
+                this,
+                "Короткое нажатие на кнопку умножения!",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        binding.editTextValue11.setOnFocusChangeListener { view, b ->
+            Toast.makeText(
+                this,
+                "Изменение фокуса на поле ввода 1 на значение ${b}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        //binding.editTextValue1.setOnKe
 
         binding.buttonPlus.setOnLongClickListener {
             Toast.makeText(
