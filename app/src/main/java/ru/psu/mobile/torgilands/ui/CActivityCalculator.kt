@@ -8,19 +8,19 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import ru.psu.mobile.torgilands.R
-import ru.psu.mobile.torgilands.databinding.ActivityMainBinding
+import ru.psu.mobile.torgilands.databinding.ActivityCalculatorBinding
 
-class MainActivity : AppCompatActivity() {
+class CActivityCalculator : AppCompatActivity() {
 //    lateinit var textViewOutput : TextView
 //    lateinit var editTextValue1 : EditText
 //    lateinit var editTextValue2 : EditText
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding : ActivityCalculatorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding             = ActivityCalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 //        textViewOutput = findViewById(R.id.textView2)

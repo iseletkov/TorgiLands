@@ -3,7 +3,6 @@ package ru.psu.mobile.torgilands.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
@@ -54,12 +53,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.ui.theme.Primary
 import ru.psu.mobile.torgilands.ui.theme.Secondary
 
-class CActivityLandList : ComponentActivity() {
+class CActivityLandListCompose : ComponentActivity() {
     lateinit var resultLauncher : ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +85,7 @@ fun MyTopBar(
 )
 {
 
-    val activity = LocalContext.current as CActivityLandList
+    val activity = LocalContext.current as CActivityLandListCompose
     var menuState by remember { mutableStateOf(false) }
 
 
