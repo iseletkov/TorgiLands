@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.databinding.ActivityBottomNavigationBinding
 
-
+//Исходный пример
+//https://www.akshayrana.in/2020/07/bottom-navigation-bar-in-android.html
 class CActivityBottomNavigation             : AppCompatActivity() {
     private lateinit var binding            : ActivityBottomNavigationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
