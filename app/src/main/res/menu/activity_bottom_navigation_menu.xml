@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_add_order"
+        android:enabled="true"
+        android:icon="@drawable/add_24"
+        android:title="Новый заказ" />
+    <item
+        android:id="@+id/menu_item_order_list"
+        android:enabled="true"
+        android:icon="@drawable/baseline_list_24"
+        android:title="Мои заказы" />
+    <item
+        android:id="@+id/menu_item_profile"
+        android:enabled="true"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Профиль"
+    />
+</menu>

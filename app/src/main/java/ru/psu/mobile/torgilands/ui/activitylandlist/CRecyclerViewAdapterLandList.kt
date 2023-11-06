@@ -1,10 +1,7 @@
 package ru.psu.mobile.torgilands.ui.activitylandlist
 
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.model.CLand
 import android.view.LayoutInflater
 import ru.psu.mobile.torgilands.databinding.LandListItemBinding
