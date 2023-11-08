@@ -15,10 +15,6 @@
         <activity
             android:name=".ui.activitybottomnavigation.CActivityBottomNavigation"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activitylandlist.CActivityLandListClassic"
@@ -30,10 +26,14 @@
             android:label="@string/title_activity_csettings"
             android:theme="@style/Theme.TorgiLands" />
         <activity
-            android:name=".ui.CActivityLandListCompose"
+            android:name=".ui.activitylandlist.CActivityLandListCompose"
             android:exported="true"
             android:label="@string/title_activity_cland_list"
             android:theme="@style/Theme.TorgiLands">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.CActivityCalculator"
