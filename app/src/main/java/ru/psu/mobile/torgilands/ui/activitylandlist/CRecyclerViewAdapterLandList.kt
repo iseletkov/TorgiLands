@@ -1,16 +1,19 @@
 package ru.psu.mobile.torgilands.ui.activitylandlist
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.psu.mobile.torgilands.model.CLand
-import android.view.LayoutInflater
 import ru.psu.mobile.torgilands.databinding.LandListItemBinding
+import ru.psu.mobile.torgilands.model.CLand
 
 // Инструкция Google по подключению RecyclerView
 //https://developer.android.com/develop/ui/views/layout/recyclerview
 
 // Пример использования ViewBinding
 //https://stackoverflow.com/questions/60423596/how-to-use-viewbinding-in-a-recyclerview-adapter
+
+//Официальная инструкция по DataBinding
+///https://developer.android.com/topic/libraries/data-binding
 /*
  *  @param items - список элементов данных для отображения.
  */
@@ -35,10 +38,11 @@ class CRecyclerViewAdapterLandList(
          */
         fun bindItem(item : CLand)
         {
-            itemBinding.TextViewHeader.text = item.header
-            itemBinding.TextViewType.text = item.type
-            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
-            itemBinding.TextViewSquare.text = "${String.format("%.2f", item.square)} м2"
+            itemBinding.land = item
+//            itemBinding.TextViewHeader.text = item.header
+//            itemBinding.TextViewType.text = item.type
+//            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
+//            itemBinding.TextViewSquare.text = "${String.format("%.2f", item.square)} м2"
         }
     }
 

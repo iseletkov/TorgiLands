@@ -19,6 +19,10 @@
         <activity
             android:name=".ui.activitylandlist.CActivityLandListClassic"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.CActivitySettings"
@@ -30,10 +34,7 @@
             android:exported="true"
             android:label="@string/title_activity_cland_list"
             android:theme="@style/Theme.TorgiLands">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.CActivityCalculator"
