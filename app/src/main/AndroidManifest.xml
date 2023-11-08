@@ -13,9 +13,11 @@
         android:theme="@style/Theme.TorgiLands"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activitylanddetail.CActivityLandDetails"
+            android:exported="false" />
+        <activity
             android:name=".ui.activitybottomnavigation.CActivityBottomNavigation"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ui.activitylandlist.CActivityLandListClassic"
             android:exported="true">
@@ -27,15 +29,13 @@
         <activity
             android:name=".ui.CActivitySettings"
             android:exported="false"
-            android:label="@string/title_activity_csettings"
+            android:label="@string/title_activity_settings"
             android:theme="@style/Theme.TorgiLands" />
         <activity
             android:name=".ui.activitylandlist.CActivityLandListCompose"
             android:exported="true"
-            android:label="@string/title_activity_cland_list"
-            android:theme="@style/Theme.TorgiLands">
-
-        </activity>
+            android:label="@string/title_activity_land_list"
+            android:theme="@style/Theme.TorgiLands"></activity>
         <activity
             android:name=".ui.CActivityCalculator"
             android:exported="true" />

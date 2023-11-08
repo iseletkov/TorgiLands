@@ -2,9 +2,16 @@
     <string name="app_name">TorgiLands</string>
     <string name="plus">Plus</string>
     <string name="initial_output">Output will be here.</string>
-    <string name="title_activity_cland_list">CActivityLandList</string>
+    <string name="title_activity_land_list">Land list</string>
     <string name="settings">Settings</string>
-    <string name="title_activity_csettings">CActivitySettings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="Add">Add</string>
+    <string name="Header">Header</string>
+    <string name="Price">Price</string>
+    <string name="Square">Square</string>
+    <string name="Type">Type</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="PARAM_ID" translatable="false">PARAM_ID</string>
+
 </resources>
