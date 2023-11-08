@@ -1,10 +1,10 @@
 package ru.psu.mobile.torgilands.ui.activitylandlist
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.psu.mobile.torgilands.model.CLand
-import android.view.LayoutInflater
 import ru.psu.mobile.torgilands.databinding.LandListItemBinding
+import ru.psu.mobile.torgilands.model.CLand
 
 // Инструкция Google по подключению RecyclerView
 //https://developer.android.com/develop/ui/views/layout/recyclerview
@@ -35,10 +35,11 @@ class CRecyclerViewAdapterLandList(
          */
         fun bindItem(item : CLand)
         {
-            itemBinding.TextViewHeader.text = item.header
-            itemBinding.TextViewType.text = item.type
-            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
-            itemBinding.TextViewSquare.text = "${String.format("%.2f", item.square)} м2"
+            itemBinding.land = item
+//            itemBinding.TextViewHeader.text = item.header
+//            itemBinding.TextViewType.text = item.type
+//            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
+//            itemBinding.TextViewSquare.text = "${String.format("%.2f", item.square)} м2"
         }
     }
 
@@ -51,6 +52,10 @@ class CRecyclerViewAdapterLandList(
 //            .inflate(R.layout.land_list_item, parent, false)
         //Считываются элементы графического интерфейса,
         //ссылки записывают в переменную itemBinding
+//        val binding : LandListItemBinding =  DataBindingUtil.inflate(
+//            LayoutInflater.from(parent.context),
+//            R.layout.land_list_item,
+//            parent, false)
         val itemBinding = LandListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
