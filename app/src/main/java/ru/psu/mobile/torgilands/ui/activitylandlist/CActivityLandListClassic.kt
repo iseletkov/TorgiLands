@@ -17,7 +17,7 @@ import java.util.UUID
 class CActivityLandListClassic : AppCompatActivity() {
     private lateinit var binding : ActivityLandListClassicBinding
     lateinit var resultLauncher             : ActivityResultLauncher<Intent>
-
+    private lateinit var listAdapter : CRecyclerViewAdapterLandList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,28 +62,40 @@ class CActivityLandListClassic : AppCompatActivity() {
                 "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
             )
         )
-        val customAdapter                   = CRecyclerViewAdapterLandList(
-            dataset
+        listAdapter                         = CRecyclerViewAdapterLandList(
+            dataset,
+            //Обработчик клика на элемент списка.
+            clickListener                   = {land ->
+                land?:return@CRecyclerViewAdapterLandList
+                val intent                  = Intent(
+                    this,
+                    CActivityLandDetails::class.java
+                )
+
+                intent.putExtra(getString(R.string.PARAM_ID), land.id.toString())
+                intent.putExtra("PARAM_HEADER", land.header)
+                intent.putExtra("PARAM_TYPE", land.type)
+                intent.putExtra("PARAM_PRICE", land.price)
+                intent.putExtra("PARAM_SQUARE", land.square)
+                resultLauncher.launch(intent)
+            },
+            //Обработчик удаления элемента.
+            deleteListener                  = {land ->
+                var index = -1
+                land?:return@CRecyclerViewAdapterLandList
+                dataset
+                    .forEachIndexed { ind, temp_land ->
+                        if (temp_land.id == land.id) {
+                            listAdapter.notifyItemRemoved(ind)
+                            index = ind
+                        }
+                    }
+                if (index>=0)
+                    dataset.removeAt(index)
+            }
         )
-        //Обработчик клика на элемент списка.
-        {index ->
-            if (index<0)
-                return@CRecyclerViewAdapterLandList
-            val intent                  = Intent(
-                this,
-                CActivityLandDetails::class.java
-            )
 
-            val land = dataset[index]
-            intent.putExtra(getString(R.string.PARAM_ID), land.id.toString())
-            intent.putExtra("PARAM_HEADER", land.header)
-            intent.putExtra("PARAM_TYPE", land.type)
-            intent.putExtra("PARAM_PRICE", land.price)
-            intent.putExtra("PARAM_SQUARE", land.square)
-            resultLauncher.launch(intent)
-        }
-
-        binding.RecyclerViewLandList.adapter = customAdapter
+        binding.RecyclerViewLandList.adapter = listAdapter
 
         val mLayoutManager                  = LinearLayoutManager(this)
         binding.RecyclerViewLandList.layoutManager = mLayoutManager
@@ -133,7 +145,7 @@ class CActivityLandListClassic : AppCompatActivity() {
                     )
                     index = dataset.size-1
                 }
-                customAdapter.notifyItemChanged(index)
+                listAdapter.notifyItemChanged(index)
             }
 
 

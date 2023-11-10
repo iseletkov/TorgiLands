@@ -55,6 +55,15 @@
                     android:text='@{String.format("%.2f", land.square)+" кв.м."}'/>
 
             </LinearLayout>
+            <Button
+                style="?attr/materialIconButtonStyle"
+                android:id="@+id/buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_delete_24"
+                android:layout_gravity="bottom"
+                />
+
         </LinearLayout>
 
 

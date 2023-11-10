@@ -18,9 +18,9 @@ import ru.psu.mobile.torgilands.model.CLand
  *  @param items - список элементов данных для отображения.
  */
 class CRecyclerViewAdapterLandList(
-
     private val items                       : List<CLand>,
-    private val clickListener               : (index : Int) -> Unit
+    private val clickListener               : (land : CLand?) -> Unit,
+    private val deleteListener              : (land : CLand?) -> Unit
 )                                           : RecyclerView.Adapter<CRecyclerViewAdapterLandList.ViewHolder>()
 {
     /*
@@ -29,15 +29,18 @@ class CRecyclerViewAdapterLandList(
      */
     class ViewHolder(
         private val itemBinding             : LandListItemBinding,
-        private val clickListener           : (index : Int) -> Unit
+        private val clickListener           : (land : CLand?) -> Unit,
+        private val deleteListener          : (land : CLand?) -> Unit
     ) : RecyclerView.ViewHolder(
         //Ссылка на корневой элемент карточки (LinearLayoutCompat)
         itemBinding.root
     ) {
-        private var index : Int = -1
         init {
             itemBinding.root.setOnClickListener {
-                clickListener(index)
+                clickListener(itemBinding.land)
+            }
+            itemBinding.buttonDelete.setOnClickListener {
+                deleteListener(itemBinding.land)
             }
         }
         /*
@@ -45,12 +48,10 @@ class CRecyclerViewAdapterLandList(
          * @param item - элемент данных, который выводится на экран.
          */
         fun bindItem(
-            item : CLand,
-            index : Int
+            item : CLand
         )
         {
             itemBinding.land = item
-            this.index = index
 //            itemBinding.TextViewHeader.text = item.header
 //            itemBinding.TextViewType.text = item.type
 //            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
@@ -68,7 +69,11 @@ class CRecyclerViewAdapterLandList(
         //Считываются элементы графического интерфейса,
         //ссылки записывают в переменную itemBinding
         val itemBinding = LandListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(itemBinding, clickListener)
+        return ViewHolder(
+            itemBinding,
+            clickListener,
+            deleteListener
+        )
     }
 
     //Возвращает полное количество элементов в списке.
@@ -82,6 +87,6 @@ class CRecyclerViewAdapterLandList(
      * @param position - порядковый номер нового элемента данных для вывода.
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(items[position], position)
+        holder.bindItem(items[position])
     }
 }
