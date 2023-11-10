@@ -17,6 +17,8 @@ import java.util.UUID
 class CActivityLandListClassic : AppCompatActivity() {
     private lateinit var binding : ActivityLandListClassicBinding
     lateinit var resultLauncher             : ActivityResultLauncher<Intent>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -60,7 +62,26 @@ class CActivityLandListClassic : AppCompatActivity() {
                 "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
             )
         )
-        val customAdapter                   = CRecyclerViewAdapterLandList(dataset)
+        val customAdapter                   = CRecyclerViewAdapterLandList(
+            dataset
+        )
+        //Обработчик клика на элемент списка.
+        {index ->
+            if (index<0)
+                return@CRecyclerViewAdapterLandList
+            val intent                  = Intent(
+                this,
+                CActivityLandDetails::class.java
+            )
+
+            val land = dataset[index]
+            intent.putExtra(getString(R.string.PARAM_ID), land.id.toString())
+            intent.putExtra("PARAM_HEADER", land.header)
+            intent.putExtra("PARAM_TYPE", land.type)
+            intent.putExtra("PARAM_PRICE", land.price)
+            intent.putExtra("PARAM_SQUARE", land.square)
+            resultLauncher.launch(intent)
+        }
 
         binding.RecyclerViewLandList.adapter = customAdapter
 

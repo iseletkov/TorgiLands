@@ -19,7 +19,8 @@ import ru.psu.mobile.torgilands.model.CLand
  */
 class CRecyclerViewAdapterLandList(
 
-    private val items                       : List<CLand>
+    private val items                       : List<CLand>,
+    private val clickListener               : (index : Int) -> Unit
 )                                           : RecyclerView.Adapter<CRecyclerViewAdapterLandList.ViewHolder>()
 {
     /*
@@ -27,18 +28,29 @@ class CRecyclerViewAdapterLandList(
      * @param itemBinding - экземпляр сгенерированного класса, позволяющего проще обращаться к элементам интерфейса.
      */
     class ViewHolder(
-        private val itemBinding: LandListItemBinding
+        private val itemBinding             : LandListItemBinding,
+        private val clickListener           : (index : Int) -> Unit
     ) : RecyclerView.ViewHolder(
         //Ссылка на корневой элемент карточки (LinearLayoutCompat)
         itemBinding.root
     ) {
+        private var index : Int = -1
+        init {
+            itemBinding.root.setOnClickListener {
+                clickListener(index)
+            }
+        }
         /*
          * Метод отвечает за вывод на экран одного элемента данных.
          * @param item - элемент данных, который выводится на экран.
          */
-        fun bindItem(item : CLand)
+        fun bindItem(
+            item : CLand,
+            index : Int
+        )
         {
             itemBinding.land = item
+            this.index = index
 //            itemBinding.TextViewHeader.text = item.header
 //            itemBinding.TextViewType.text = item.type
 //            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
@@ -56,7 +68,7 @@ class CRecyclerViewAdapterLandList(
         //Считываются элементы графического интерфейса,
         //ссылки записывают в переменную itemBinding
         val itemBinding = LandListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(itemBinding)
+        return ViewHolder(itemBinding, clickListener)
     }
 
     //Возвращает полное количество элементов в списке.
@@ -70,6 +82,6 @@ class CRecyclerViewAdapterLandList(
      * @param position - порядковый номер нового элемента данных для вывода.
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(items[position])
+        holder.bindItem(items[position], position)
     }
 }
