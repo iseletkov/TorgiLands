@@ -4,4 +4,13 @@
     <string name="plus">Сложить</string>
     <string name="initial_output">Результат вычислений появится здесь.</string>
     <string name="settings">Настройки</string>
+    <string name="Add">Добавить</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="title_activity_land_list">Список участков</string>
+    <string name="Header">Заголовок</string>
+    <string name="Price">Начальная цена</string>
+    <string name="Square">Площадь</string>
+    <string name="Type">Вид разрешённого использования</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
 </resources>

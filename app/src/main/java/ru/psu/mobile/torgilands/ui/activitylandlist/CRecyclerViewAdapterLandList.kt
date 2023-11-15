@@ -11,12 +11,16 @@ import ru.psu.mobile.torgilands.model.CLand
 
 // Пример использования ViewBinding
 //https://stackoverflow.com/questions/60423596/how-to-use-viewbinding-in-a-recyclerview-adapter
+
+//Официальная инструкция по DataBinding
+///https://developer.android.com/topic/libraries/data-binding
 /*
  *  @param items - список элементов данных для отображения.
  */
 class CRecyclerViewAdapterLandList(
-
-    private val items                       : List<CLand>
+    private val items                       : List<CLand>,
+    private val clickListener               : (land : CLand?) -> Unit,
+    private val deleteListener              : (land : CLand?) -> Unit
 )                                           : RecyclerView.Adapter<CRecyclerViewAdapterLandList.ViewHolder>()
 {
     /*
@@ -24,16 +28,28 @@ class CRecyclerViewAdapterLandList(
      * @param itemBinding - экземпляр сгенерированного класса, позволяющего проще обращаться к элементам интерфейса.
      */
     class ViewHolder(
-        private val itemBinding: LandListItemBinding
+        private val itemBinding             : LandListItemBinding,
+        private val clickListener           : (land : CLand?) -> Unit,
+        private val deleteListener          : (land : CLand?) -> Unit
     ) : RecyclerView.ViewHolder(
         //Ссылка на корневой элемент карточки (LinearLayoutCompat)
         itemBinding.root
     ) {
+        init {
+            itemBinding.root.setOnClickListener {
+                clickListener(itemBinding.land)
+            }
+            itemBinding.buttonDelete.setOnClickListener {
+                deleteListener(itemBinding.land)
+            }
+        }
         /*
          * Метод отвечает за вывод на экран одного элемента данных.
          * @param item - элемент данных, который выводится на экран.
          */
-        fun bindItem(item : CLand)
+        fun bindItem(
+            item : CLand
+        )
         {
             itemBinding.land = item
 //            itemBinding.TextViewHeader.text = item.header
@@ -57,7 +73,11 @@ class CRecyclerViewAdapterLandList(
 //            R.layout.land_list_item,
 //            parent, false)
         val itemBinding = LandListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(itemBinding)
+        return ViewHolder(
+            itemBinding,
+            clickListener,
+            deleteListener
+        )
     }
 
     //Возвращает полное количество элементов в списке.
