@@ -1,12 +1,12 @@
 package ru.psu.mobile.torgilands.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.databinding.ActivityCalculatorBinding
 
@@ -44,7 +44,7 @@ class CActivityCalculator : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        binding.editTextValue11.setOnFocusChangeListener { view, b ->
+        binding.editTextValue11.setOnFocusChangeListener { _, b ->
             Toast.makeText(
                 this,
                 "Изменение фокуса на поле ввода 1 на значение ${b}",

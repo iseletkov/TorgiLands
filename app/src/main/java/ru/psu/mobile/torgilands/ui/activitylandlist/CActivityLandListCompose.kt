@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,11 +18,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -29,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,11 +45,13 @@ import androidx.compose.ui.unit.dp
 import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.model.CLand
 import ru.psu.mobile.torgilands.ui.CActivitySettings
+import ru.psu.mobile.torgilands.ui.activitylanddetail.CActivityLandDetails
 import java.util.UUID
 
 class CActivityLandListCompose              : ComponentActivity() {
     lateinit var resultLauncher             : ActivityResultLauncher<Intent>
-    var items                               = mutableListOf<CLand>()
+    var items                               = mutableStateListOf<CLand>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -99,14 +105,75 @@ class CActivityLandListCompose              : ComponentActivity() {
 
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // There are no request codes
-                val data = result.data?.extras
+                if (result.resultCode != Activity.RESULT_OK)
+                    return@registerForActivityResult
 
-                val x = 123
+                // There are no request codes
+                val bundle                  = result.data?.extras
+                bundle?.let{
+                    val id                  = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
+                        UUID.fromString(tempId)
+                    }
+
+                    id?: return@registerForActivityResult
+
+                    val header              = bundle.getString(getString(R.string.PARAM_HEADER), "")
+                    val type                = bundle.getString(getString(R.string.PARAM_TYPE), "")
+                    val price               = bundle.getDouble(getString(R.string.PARAM_PRICE))
+                    val square              = bundle.getDouble(getString(R.string.PARAM_SQUARE))
+
+                    val index               = items.indexOfFirst { it.id==id }
+                    if (index>=0)
+                    {
+                        items[index]        = items[index].copy(
+                            header = header,
+                            type = type,
+                            price = price,
+                            square = square
+                        )
+                    }
+                    else
+                    {
+                        items.add(
+                            CLand(
+                                id ,
+                                header,
+                                price,
+                                square,
+                                type
+                            )
+                        )
+                    }
+
+
+                }
             }
         }
     }
+    fun onButtonAddClick()
+    {
+        val intent                  = Intent(
+            this,
+            CActivityLandDetails::class.java
+        )
+        resultLauncher.launch(intent)
+    }
+    fun onItemEdit(
+        land                                : CLand
+    )
+    {
+        val intent                          = Intent(
+            this,
+            CActivityLandDetails::class.java
+        )
 
+        intent.putExtra(getString(R.string.PARAM_ID), land.id.toString())
+        intent.putExtra("PARAM_HEADER", land.header)
+        intent.putExtra("PARAM_TYPE", land.type)
+        intent.putExtra("PARAM_PRICE", land.price)
+        intent.putExtra("PARAM_SQUARE", land.square)
+        resultLauncher.launch(intent)
+    }
 }
 @Composable
 fun Menu(
@@ -179,7 +246,13 @@ fun LandCard(
     land                                    : CLand
 )
 {
-    Column{
+    val activity                            = LocalContext.current as CActivityLandListCompose
+
+    Column(
+        modifier                            = Modifier.clickable {
+            activity.onItemEdit(land)
+        }
+    ){
         Text(text                           = land.header)
         Row {
             Image(
@@ -211,9 +284,22 @@ fun Content(
         contentPadding                      = innerPadding,
         verticalArrangement                 = Arrangement.spacedBy(9.dp)
     ) {
-        items(activity.items){
-            LandCard(it)
+        items(items = activity.items){ item ->
+            LandCard(item)
         }
+    }
+}
+//https://stackoverflow.com/questions/58547448/jetpack-ui-compose-how-to-create-floatingactionbutton
+@Composable
+fun Fab()
+{
+    val activity                            = LocalContext.current as CActivityLandListCompose
+    FloatingActionButton(
+        onClick                             = {
+            activity.onButtonAddClick()
+        }
+    ) {
+        Icon(Icons.Filled.Add,"")
     }
 }
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -225,6 +311,7 @@ fun CPreview() {
         topBar                              = { MyTopBar() },
         content                             = { innerPadding ->
             Content(innerPadding            = innerPadding)
-        }
+        },
+        floatingActionButton                = { Fab() }
     )
 }

@@ -17,14 +17,13 @@
             android:exported="false" />
         <activity
             android:name=".ui.activitybottomnavigation.CActivityBottomNavigation"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".ui.activitylandlist.CActivityLandListClassic"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.CActivitySettings"
@@ -33,9 +32,14 @@
             android:theme="@style/Theme.TorgiLands" />
         <activity
             android:name=".ui.activitylandlist.CActivityLandListCompose"
-            android:exported="true"
             android:label="@string/title_activity_land_list"
-            android:theme="@style/Theme.TorgiLands"></activity>
+            android:theme="@style/Theme.TorgiLands"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.CActivityCalculator"
             android:exported="true" />
