@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/LineHeight"
             android:hint="Число 1"
-            style="@style/MyCustomInputStyle"
+            style="@style/CStyleInput"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextValue11"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/LineHeight"
             android:hint="Число 2"
-            style="@style/MyCustomInputStyle"
+            style="@style/CStyleInput"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -58,11 +58,11 @@
                 android:layout_weight="1"
                 android:onClick="onButtonPlusClick"
                 android:text="@string/plus"
-                style="@style/MyCustomButtonStyle"/>
+                style="@style/CStyleButton"/>
 
             <Button
                 android:id="@+id/buttonMinus"
-                style="@style/MyCustomButtonStyle"
+                style="@style/CStyleButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Button"
-                style="@style/MyCustomButtonStyle"
+                style="@style/CStyleButton"
             />
 
             <Button
@@ -84,7 +84,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Делить"
-                style="@style/MyCustomButtonStyle"/>
+                style="@style/CStyleButton"/>
         </LinearLayout>
 
         <TextView
