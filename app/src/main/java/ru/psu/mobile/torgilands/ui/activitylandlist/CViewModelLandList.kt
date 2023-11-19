@@ -66,17 +66,6 @@ class CViewModelLandList : ViewModel()
             itemsRepository.toList()
         )
     }
-    fun addItem(
-        item                                : CLand
-    )
-    {
-        itemsRepository.add(item)
-        //TODO Здесь должно быть сохранение в БД.
-        itemsFlow.tryEmit(itemsRepository.toList())
-//        itemsFlow.update { _ ->
-//            itemsRepository.toList()
-//        }
-    }
     fun deleteItem(
         item                                : CLand?
     )
@@ -91,9 +80,6 @@ class CViewModelLandList : ViewModel()
 
         itemsRepository.removeAt(index)
         itemsFlow.tryEmit(itemsRepository.toList())
-//        itemsFlow.update {_ ->
-//            itemsRepository.toList()
-//        }
     }
     fun editItem(
         id                                  : UUID,
@@ -103,9 +89,6 @@ class CViewModelLandList : ViewModel()
         type                                : String
     )
     {
-        val index                           = itemsRepository.indexOfFirst {item ->item.id==id }
-        if (index<0)
-            return
         val item                            = CLand(
             id                              = id,
             header                          = header,
@@ -113,11 +96,15 @@ class CViewModelLandList : ViewModel()
             square                          = square,
             type                            = type
         )
-        itemsRepository.removeAt(index)
-        itemsRepository.add(index, item)
+        val index                           = itemsRepository.indexOfFirst {tempItem ->tempItem.id==id }
+        if (index<0)
+        {
+            itemsRepository.add(item)
+        }
+        else {
+            itemsRepository.removeAt(index)
+            itemsRepository.add(index, item)
+        }
         itemsFlow.tryEmit(itemsRepository.toList())
-//        itemsFlow.update {_ ->
-//            itemsRepository.toList()
-//        }
     }
 }

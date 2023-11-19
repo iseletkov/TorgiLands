@@ -19,8 +19,7 @@ import java.util.UUID
 //https://developer.android.com/topic/libraries/data-binding/architecture
 class CViewModelLandDetail                  : ViewModel() {
 
-    var id                                  : UUID?
-                                            = null
+    private lateinit var id                 : UUID
 
     //Хранение информации, отображаемой в полях ввода на форме.
     //Для удобства доступа с формы через DataBinding.
@@ -36,7 +35,8 @@ class CViewModelLandDetail                  : ViewModel() {
 
     // Информация в виде объекта класса из предметной области,
     // проверенная, очищенная от ошибок ввода.
-    private val _land                       = MutableStateFlow(CLand())
+    //По-умолчанию подсталяется пустой объект.
+    private val _land                       = MutableStateFlow(CLand(UUID.randomUUID()))
     val land                                : StateFlow<CLand>
                                             = _land.asStateFlow()
 
@@ -53,7 +53,7 @@ class CViewModelLandDetail                  : ViewModel() {
      * TODO брать из БД.                                                                                *
      ***************************************************************************************************/
     fun setItem(
-        id                                  : UUID?,
+        id                                  : UUID,
         header                              : String,
         price                               : Double,
         square                              : Double,

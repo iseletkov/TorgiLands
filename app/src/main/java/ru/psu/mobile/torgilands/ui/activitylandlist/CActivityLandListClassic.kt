@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
 import ru.psu.mobile.torgilands.R
 import ru.psu.mobile.torgilands.databinding.ActivityLandListClassicBinding
-import ru.psu.mobile.torgilands.model.CLand
 import ru.psu.mobile.torgilands.ui.activitylanddetail.CActivityLandDetails
 import java.util.UUID
 
@@ -25,19 +24,18 @@ class CActivityLandListClassic              : AppCompatActivity() {
     //Подключение модели представления
     private val viewModel                   : CViewModelLandList by viewModels()
     private lateinit var binding            : ActivityLandListClassicBinding
-    lateinit var resultLauncher             : ActivityResultLauncher<Intent>
+    private lateinit var resultLauncher     : ActivityResultLauncher<Intent>
     private lateinit var listAdapter        : CAdapterLandList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //Настройка ViewBinding
         binding                             = ActivityLandListClassicBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        //Создание и настройка экземпляра класса адаптера списка.
         listAdapter                         = CAdapterLandList(
-            //Текущее состояние элементов списка.
-//            viewModel.items.value,
             //Обработчик клика на элемент списка.
             clickListener                   = {land ->
                 land?:return@CAdapterLandList
@@ -77,31 +75,22 @@ class CActivityLandListClassic              : AppCompatActivity() {
                 val id                      = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
                     UUID.fromString(tempId)
                 }
+                //Если идентификатор не указан,
+                //ничего не делаем.
+                id?:return@let
 
                 val header                  = bundle.getString(getString(R.string.PARAM_HEADER), "")
                 val type                    = bundle.getString(getString(R.string.PARAM_TYPE), "")
                 val price                   = bundle.getDouble(getString(R.string.PARAM_PRICE))
                 val square                  = bundle.getDouble(getString(R.string.PARAM_SQUARE))
 
-                id?.let{
-                    viewModel.editItem(
-                        id,
-                        header,
-                        price,
-                        square,
-                        type
-                    )
-                }?:run{
-                    viewModel.addItem(
-                        CLand(
-                            UUID.randomUUID(),
-                            header,
-                            price,
-                            square,
-                            type
-                        )
-                    )
-                }
+                viewModel.editItem(
+                    id,
+                    header,
+                    price,
+                    square,
+                    type
+                )
             }
         }
         binding.fab.setOnClickListener {
@@ -109,6 +98,7 @@ class CActivityLandListClassic              : AppCompatActivity() {
                 this,
                 CActivityLandDetails::class.java
             )
+            intent.putExtra(getString(R.string.PARAM_ID), UUID.randomUUID().toString())
             resultLauncher.launch(intent)
         }
 

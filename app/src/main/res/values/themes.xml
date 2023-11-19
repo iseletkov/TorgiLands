@@ -19,6 +19,14 @@
         <item name="android:layout_margin">5dp</item>
         <item name="iconTint">@color/primary</item>
     </style>
+    <style name="CStyleButtonIconFilled" parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="cornerRadius">10dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+    </style>
 
 
     <style name="CStyleInput" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">

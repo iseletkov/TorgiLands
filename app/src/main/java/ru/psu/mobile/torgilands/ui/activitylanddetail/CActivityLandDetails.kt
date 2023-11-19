@@ -30,15 +30,29 @@ class CActivityLandDetails                  : AppCompatActivity() {
         //Проверяем факт обработки переданных из предыдущей активности параметров.
         if (!viewModel.initilized.value) {
             intent.extras?.let {bundle ->
+                val id                      = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
+                    UUID.fromString(tempId)
+                }
+                //Если идентификатор не указан,
+                //выдаём сообщение
+                id?:run{
+                    //Можно сообщение прокрутить через модель представления.
+                    Toast.makeText(
+                        this@CActivityLandDetails,
+                        getString(R.string.INTERNAL_ERROR),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                    return@let
+                }
+
                 //Передаём начальные данные в модель представления.
                 viewModel.setItem(
-                    id                      = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
-                        UUID.fromString(tempId)
-                    },
-                    header                  = bundle.getString("PARAM_HEADER", ""),
-                    type                    = bundle.getString("PARAM_TYPE", ""),
-                    price                   = bundle.getDouble("PARAM_PRICE"),
-                    square                  = bundle.getDouble("PARAM_SQUARE")
+                    id                      = id,
+                    header                  = bundle.getString(getString(R.string.PARAM_HEADER), ""),
+                    type                    = bundle.getString(getString(R.string.PARAM_TYPE), ""),
+                    price                   = bundle.getDouble(getString(R.string.PARAM_PRICE)),
+                    square                  = bundle.getDouble(getString(R.string.PARAM_SQUARE))
                 )
             }
         }
@@ -57,9 +71,7 @@ class CActivityLandDetails                  : AppCompatActivity() {
             //тогда закрываем текущую активность и возвращаем введённые данные в предыдущую.
             //TODO В случае БД Room+Flow эта передача не требуется.
             val data                        = Intent()
-            viewModel.land.value.id?.let{
-                data.putExtra(getString(R.string.PARAM_ID),viewModel.land.value.id.toString())
-            }
+            data.putExtra(getString(R.string.PARAM_ID),viewModel.land.value.id.toString())
             data.putExtra(getString(R.string.PARAM_HEADER), viewModel.land.value.header)
             data.putExtra(getString(R.string.PARAM_PRICE), viewModel.land.value.price)
             data.putExtra(getString(R.string.PARAM_SQUARE), viewModel.land.value.square)

@@ -27,10 +27,10 @@
             style="@style/CStyleInput"
             >
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextValue11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal|numberSigned"
+                android:textColor="@color/primary"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number|numberDecimal|numberSigned"
+                android:textColor="@color/primary"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
@@ -56,17 +57,18 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="onButtonPlusClick"
-                android:text="@string/plus"
-                style="@style/CStyleButton"/>
+                android:text=""
+                app:icon="@drawable/add_24"
+                style="@style/CStyleButtonIconFilled"
+                />
 
             <Button
                 android:id="@+id/buttonMinus"
-                style="@style/CStyleButton"
+                style="@style/CStyleButtonIconFilled"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button"
+                app:icon="@drawable/baseline_remove_24"
                 />
 
             <Button
@@ -74,8 +76,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button"
-                style="@style/CStyleButton"
+                app:icon="@drawable/baseline_close_24"
+                style="@style/CStyleButtonIconFilled"
             />
 
             <Button
@@ -83,21 +85,23 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Делить"
-                style="@style/CStyleButton"/>
+                app:icon="@drawable/icons8_divide_24"
+                style="@style/CStyleButtonIconFilled"/>
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/primary"
+            />
 
 
     </LinearLayout>
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/house"

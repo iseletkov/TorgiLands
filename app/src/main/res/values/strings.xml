@@ -20,4 +20,5 @@
 
     <string name="MESSAGE_WRONG_FORMAT_PRICE">Wrong format of price!</string>
     <string name="MESSAGE_WRONG_FORMAT_SQUARE">Wrong format of square!</string>
+    <string name="INTERNAL_ERROR">An internal error occurred</string>
 </resources>

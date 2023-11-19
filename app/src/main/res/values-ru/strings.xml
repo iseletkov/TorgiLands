@@ -16,4 +16,5 @@
 
     <string name="MESSAGE_WRONG_FORMAT_PRICE">Цена указана некорректно!</string>
     <string name="MESSAGE_WRONG_FORMAT_SQUARE">Площадь указана некорреткно!</string>
+    <string name="INTERNAL_ERROR">Произошла ошибка приложения</string>
 </resources>
