@@ -6,66 +6,80 @@
             name="land"
             type="ru.psu.mobile.torgilands.model.CLand" />
     </data>
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/secondary"
+        app:strokeColor="@color/primary"
         >
-        <TextView
-            android:id="@+id/TextViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="100dp"
-            android:text="@{land.header}"
-            />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/ImageViewPreview"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id="@+id/TextViewType"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@{land.type}"
-                    />
-                <TextView
-                    android:id="@+id/TextViewPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text='@{String.format("%.2f", land.price)+" руб."}'/>
-                <TextView
-                    android:id="@+id/TextViewSquare"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text='@{String.format("%.2f", land.square)+" кв.м."}'/>
-
-            </LinearLayout>
-            <Button
-                style="?attr/materialIconButtonStyle"
-                android:id="@+id/buttonDelete"
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/TextViewHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/baseline_delete_24"
-                android:layout_gravity="bottom"
+                android:maxHeight="120dp"
+                android:minHeight="60dp"
+                android:text="@{land.header}"
+                android:textColor="@color/primary"
+                android:layout_margin="5dp"
                 />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/ImageViewPreview"
+                    android:src="@drawable/house"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="5dp"
+                    >
+                    <TextView
+                        android:id="@+id/TextViewType"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@{land.type}"
+                        android:textColor="@color/primary"
+                        />
+                    <TextView
+                        android:id="@+id/TextViewPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text='@{String.format("%.2f", land.price)+" руб."}'
+                        android:textColor="@color/primary"/>
+                    <TextView
+                        android:id="@+id/TextViewSquare"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text='@{String.format("%.2f", land.square)+" кв.м."}'
+                        android:textColor="@color/primary"/>
+
+                </LinearLayout>
+                <Button
+                    style="@style/CStyleButtonIcon"
+                    android:id="@+id/buttonDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/baseline_delete_24"
+                    android:layout_gravity="bottom"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
-
-
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -2,6 +2,8 @@ package ru.psu.mobile.torgilands.ui.activitylandlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.psu.mobile.torgilands.databinding.LandListItemBinding
 import ru.psu.mobile.torgilands.model.CLand
@@ -14,14 +16,22 @@ import ru.psu.mobile.torgilands.model.CLand
 
 //Официальная инструкция по DataBinding
 ///https://developer.android.com/topic/libraries/data-binding
+
+//Автоматическая проверка изменений в списке.
+//https://davy.ai/update-recyclerview-from-stateflow-doesnt-work/
 /*
  *  @param items - список элементов данных для отображения.
  */
-class CRecyclerViewAdapterLandList(
-    private val items                       : List<CLand>,
+class CAdapterLandList
+//Конструктор данного класса.
+(
     private val clickListener               : (land : CLand?) -> Unit,
     private val deleteListener              : (land : CLand?) -> Unit
-)                                           : RecyclerView.Adapter<CRecyclerViewAdapterLandList.ViewHolder>()
+)                                           : ListAdapter<CLand, CAdapterLandList.ViewHolder>
+//Конструктор родителя.
+    (
+        CDiffCallback()
+    )
 {
     /*
      * Класс отвечает за хранение ссылок на элементы интерфейса для отображения одного элемента данных.
@@ -81,9 +91,9 @@ class CRecyclerViewAdapterLandList(
     }
 
     //Возвращает полное количество элементов в списке.
-    override fun getItemCount(): Int {
-        return items.size
-    }
+//    override fun getItemCount(): Int {
+//        return items.size
+//    }
 
     /*
      * Вызывается, когда старая карточка переиспользуется для вывода нового элемента данных.
@@ -91,6 +101,24 @@ class CRecyclerViewAdapterLandList(
      * @param position - порядковый номер нового элемента данных для вывода.
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(items[position])
+        holder.bindItem(getItem(position))
+    }
+
+    private class CDiffCallback             : DiffUtil.ItemCallback<CLand>() {
+        override fun areItemsTheSame(
+            oldItem                         : CLand,
+            newItem                         : CLand
+        )                                   : Boolean
+        {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem                         : CLand,
+            newItem                         : CLand
+        )                                   : Boolean
+        {
+            return oldItem == newItem
+        }
     }
 }

@@ -42,7 +42,9 @@
         </activity>
         <activity
             android:name=".ui.CActivityCalculator"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
     </application>
 
 </manifest>

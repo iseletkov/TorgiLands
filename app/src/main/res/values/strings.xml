@@ -14,8 +14,11 @@
     <string name="cancel">Cancel</string>
     <string name="PARAM_ID" translatable="false">PARAM_ID</string>
     <string name="PARAM_HEADER" translatable="false">PARAM_HEADER</string>
-    <string name="PARAM_TYPE" translatable="false">PARAM_TYPE</string>
     <string name="PARAM_PRICE" translatable="false">PARAM_PRICE</string>
     <string name="PARAM_SQUARE" translatable="false">PARAM_SQUARE</string>
+    <string name="PARAM_TYPE" translatable="false">PARAM_TYPE</string>
 
+    <string name="MESSAGE_WRONG_FORMAT_PRICE">Wrong format of price!</string>
+    <string name="MESSAGE_WRONG_FORMAT_SQUARE">Wrong format of square!</string>
+    <string name="INTERNAL_ERROR">An internal error occurred</string>
 </resources>

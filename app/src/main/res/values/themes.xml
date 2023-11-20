@@ -7,7 +7,7 @@
 
     <style name="Theme.TorgiLands" parent="Base.Theme.TorgiLands" />
 
-    <style name="MyCustomButtonStyle" parent="Widget.Material3.Button.TextButton">
+    <style name="CStyleButton" parent="Widget.Material3.Button.TextButton">
         <item name="cornerRadius">10dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:backgroundTint">@color/primary</item>
@@ -15,12 +15,27 @@
         <item name="iconTint">@color/white</item>
     </style>
 
-    <style name="MyCustomInputStyle" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+    <style name="CStyleButtonIcon" parent="Widget.Material3.Button.IconButton">
+        <item name="android:layout_margin">5dp</item>
+        <item name="iconTint">@color/primary</item>
+    </style>
+    <style name="CStyleButtonIconFilled" parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="cornerRadius">10dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="iconTint">@color/white</item>
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+    </style>
+
+
+    <style name="CStyleInput" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
-        <item name="android:textColorHint">@color/primary</item>
+        <item name="android:textColorHint">@color/text_input_box_stroke</item>
+        <item name="hintTextColor">@color/primary</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
