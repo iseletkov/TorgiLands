@@ -19,8 +19,8 @@ interface IDAOLands {
     )                                       : Flow<CLand>
 
     @Insert
-    fun insert(land: CLand)
+    suspend fun insert(land: CLand)
 
     @Delete
-    fun delete(land: CLand)
+    suspend fun delete(land: CLand)
 }
