@@ -11,16 +11,28 @@ import java.util.UUID
 @Dao
 interface IDAOLands {
     @Query("SELECT * FROM lands")
-    fun getAll(): Flow<List<CLand>>
+    fun getAll()                            : Flow<List<CLand>>
 
     @Query("SELECT * FROM lands WHERE id = :id")
     fun getById(
         id : UUID
     )                                       : Flow<CLand>
 
+    @Query("""
+        SELECT * FROM lands 
+        WHERE 
+            header LIKE :header  
+            AND
+            price = :price
+    """)
+    fun getByHeaderAndPrice(
+        header : String,
+        price : Double
+    )                                       : Flow<List<CLand>>
+
     @Insert
-    fun insert(land: CLand)
+    suspend fun insert(land: CLand) //async
 
     @Delete
-    fun delete(land: CLand)
+    suspend fun delete(land: CLand)
 }
