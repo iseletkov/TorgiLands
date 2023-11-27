@@ -1,6 +1,5 @@
 package ru.psu.mobile.torgilands.ui.activitylandlist
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
@@ -43,12 +42,11 @@ class CActivityLandListClassic              : AppCompatActivity() {
                     this,
                     CActivityLandDetails::class.java
                 )
-
                 intent.putExtra(getString(R.string.PARAM_ID), land.id.toString())
-                intent.putExtra(getString(R.string.PARAM_HEADER), land.header)
-                intent.putExtra(getString(R.string.PARAM_TYPE), land.type)
-                intent.putExtra(getString(R.string.PARAM_PRICE), land.price)
-                intent.putExtra(getString(R.string.PARAM_SQUARE), land.square)
+//                intent.putExtra(getString(R.string.PARAM_HEADER), land.header)
+//                intent.putExtra(getString(R.string.PARAM_TYPE), land.type)
+//                intent.putExtra(getString(R.string.PARAM_PRICE), land.price)
+//                intent.putExtra(getString(R.string.PARAM_SQUARE), land.square)
                 resultLauncher.launch(intent)
             },
             //Обработчик удаления элемента.
@@ -65,33 +63,33 @@ class CActivityLandListClassic              : AppCompatActivity() {
         resultLauncher                      = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
 
-            if (result.resultCode != Activity.RESULT_OK)
-                return@registerForActivityResult
-
-
-            // There are no request codes
-            val bundle                      = result.data?.extras
-            bundle?.let{
-                val id                      = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
-                    UUID.fromString(tempId)
-                }
-                //Если идентификатор не указан,
-                //ничего не делаем.
-                id?:return@let
-
-                val header                  = bundle.getString(getString(R.string.PARAM_HEADER), "")
-                val type                    = bundle.getString(getString(R.string.PARAM_TYPE), "")
-                val price                   = bundle.getDouble(getString(R.string.PARAM_PRICE))
-                val square                  = bundle.getDouble(getString(R.string.PARAM_SQUARE))
-
-                viewModel.editItem(
-                    id,
-                    header,
-                    price,
-                    square,
-                    type
-                )
-            }
+//            if (result.resultCode != Activity.RESULT_OK)
+//                return@registerForActivityResult
+//
+//
+//            // There are no request codes
+//            val bundle                      = result.data?.extras
+//            bundle?.let{
+//                val id                      = bundle.getString(getString(R.string.PARAM_ID))?.let { tempId ->
+//                    UUID.fromString(tempId)
+//                }
+//                //Если идентификатор не указан,
+//                //ничего не делаем.
+//                id?:return@let
+//
+//                val header                  = bundle.getString(getString(R.string.PARAM_HEADER), "")
+//                val type                    = bundle.getString(getString(R.string.PARAM_TYPE), "")
+//                val price                   = bundle.getDouble(getString(R.string.PARAM_PRICE))
+//                val square                  = bundle.getDouble(getString(R.string.PARAM_SQUARE))
+//
+//                viewModel.editItem(
+//                    id,
+//                    header,
+//                    price,
+//                    square,
+//                    type
+//                )
+//            }
         }
         binding.fab.setOnClickListener {
             val intent                  = Intent(

@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import ru.psu.mobile.torgilands.db.CDatabase
 import ru.psu.mobile.torgilands.model.CLand
+import java.util.UUID
 
 class CRepositoryLands(
     context                                 : Context
@@ -21,6 +22,13 @@ class CRepositoryLands(
         //Взять из локального источника актуальные данные
         //return daoLands.getByHeaderAndPrice("123", 123.0)
         return daoLands.getAll()
+    }
+
+    fun getById(
+        id : UUID
+    ) : Flow<CLand?>
+    {
+        return daoLands.getById(id)
     }
 
     suspend fun insert(
