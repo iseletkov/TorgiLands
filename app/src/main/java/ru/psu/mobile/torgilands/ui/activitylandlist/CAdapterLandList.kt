@@ -62,10 +62,6 @@ class CAdapterLandList
         )
         {
             itemBinding.land = item
-//            itemBinding.TextViewHeader.text = item.header
-//            itemBinding.TextViewType.text = item.type
-//            itemBinding.TextViewPrice.text = "${String.format("%.2f", item.price)} руб."
-//            itemBinding.TextViewSquare.text = "${String.format("%.2f", item.square)} м2"
         }
     }
 
@@ -73,27 +69,19 @@ class CAdapterLandList
      * Метод вызывается при создании новой карточки в списке.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.land_list_item, parent, false)
         //Считываются элементы графического интерфейса,
         //ссылки записывают в переменную itemBinding
-//        val binding : LandListItemBinding =  DataBindingUtil.inflate(
-//            LayoutInflater.from(parent.context),
-//            R.layout.land_list_item,
-//            parent, false)
-        val itemBinding = LandListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = LandListItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(
             itemBinding,
             clickListener,
             deleteListener
         )
     }
-
-    //Возвращает полное количество элементов в списке.
-//    override fun getItemCount(): Int {
-//        return items.size
-//    }
 
     /*
      * Вызывается, когда старая карточка переиспользуется для вывода нового элемента данных.

@@ -1,37 +1,47 @@
 package ru.psu.mobile.torgilands.repositories
 
-import android.app.Application
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import ru.psu.mobile.torgilands.db.CDatabase
 import ru.psu.mobile.torgilands.model.CLand
 import java.util.UUID
 
 class CRepositoryLands(
-    application                             : Application
-) {
-    private val db                          = CDatabase.getDatabase(application)
+    context                                 : Context
+)
+{
+    private val db                          = CDatabase.getDatabase(context)
     private val daoLands                    = db.daoLands()
 
-    fun getAll() : Flow<List<CLand>>
+    fun getAll()                            : Flow<List<CLand>>
     {
+        //Есть ли данные локально?
+        //Спросить у сервера
+        //Получить ответ от сервера
+        //Сохранить новые данные локально
+        //Взять из локального источника актуальные данные
+        //return daoLands.getByHeaderAndPrice("123", 123.0)
         return daoLands.getAll()
     }
 
     fun getById(
         id : UUID
-    ): Flow<CLand>
+    ) : Flow<CLand?>
     {
         return daoLands.getById(id)
     }
 
-    suspend fun insert(land: CLand)
+    suspend fun insert(
+        land: CLand
+    )
     {
         daoLands.insert(land)
     }
 
-    suspend fun delete(land: CLand)
+    suspend fun delete(
+        land: CLand
+    )
     {
         daoLands.delete(land)
     }
-
 }

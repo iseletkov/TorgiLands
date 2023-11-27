@@ -18,94 +18,58 @@ import java.util.UUID
  * Модель представления для активности с отображением списка участков на торгах.                        *
  *******************************************************************************************************/
 class CViewModelLandList(
-    private val application                     : Application
-)                                               : AndroidViewModel(application)
+    application: Application
+) : AndroidViewModel(application)
 {
-    //Собственно хранилище данных, без возможности подписки.
-//    private val itemsRepository                  = mutableListOf(
-//        CLand(
-//            UUID.randomUUID(),
-//            "Аренда земельного участка 1 200 кв.м для ЛПХ в г.о. Домодедово (КН 50:28:0110318:1226)",
-//            123456.00,
-//            1200.0,
-//            "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
-//        ),
-//        CLand(
-//            UUID.randomUUID(),
-//            "Аренда земельного участка 1 200 кв.м для ЛПХ в г.о. Домодедово (КН 50:28:0110318:1226)",
-//            123456.00,
-//            1200.0,
-//            "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
-//        ),
-//        CLand(
-//            UUID.randomUUID(),
-//            "Предмет аукциона – земельный участок, государственная собственность на который не разграничена, с кадастровым номером 12:04:0870113:991, категория земель – земли населенных пунктов, разрешенное использование – обслуживание автотранспорта, площадью 1345 кв. м., расположенный по адресу: Российская Федерация, Республика Марий Эл, Медведевский муниципальный район, пгт. Медведево, в границах, соответствующих описанию в сведениях государственного кадастра недвижимости (далее – земельный участок).",
-//            123456.00,
-//            1200.0,
-//            "Иной вид (установлен до дня утверждения в соответствии с ЗК РФ классификатора)"
-//        ),
-//        CLand(
-//            UUID.randomUUID(),
-//            "Аренда земельного участка 1 200 кв.м для ЛПХ в г.о. Домодедово (КН 50:28:0110318:1226)",
-//            123456.00,
-//            1200.0,
-//            "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
-//        ),
-//        CLand(
-//            UUID.randomUUID(),
-//            "Аренда земельного участка 1 200 кв.м для ЛПХ в г.о. Домодедово (КН 50:28:0110318:1226)",
-//            123456.00,
-//            1200.0,
-//            "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
-//        )
-//    )
+    private val repositoryLands                 = CRepositoryLands(application)
+
     //Редактируемый список элементов с возможностью подписки на изменения
     //для внутреннего использования.
-    private var itemsFlow                   = MutableStateFlow<List<CLand>>(listOf())
+    private var itemsFlow                   = MutableStateFlow<List<CLand>>(
+        emptyList()
+    )
     //Нередактируемый список элементов с возможностью подписки на изменения
     //Для предоставления в активность.
     val items                               : StateFlow<List<CLand>>
                                             = itemsFlow.asStateFlow()
-
-    private val repositoryLands             = CRepositoryLands(application)
     init {
-
         viewModelScope.launch {
-            repositoryLands.insert(
-                CLand(
-                    UUID.randomUUID(),
-                    "Аренда земельного участка 1 200 кв.м для ЛПХ в г.о. Домодедово (КН 50:28:0110318:1226)",
-                    123456.00,
-                    1200.0,
-                    "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
-                )
-            )
+//            repositoryLands.insert(
+//                CLand(
+//                    UUID.randomUUID(),
+//                    "Аренда земельного участка 1 200 кв.м для ЛПХ в г.о. Домодедово (КН 50:28:0110318:1226)",
+//                    123456.00,
+//                    1200.0,
+//                    "Для ведения личного подсобного хозяйства (приусадебный земельный участок)"
+//                )
+//            )
+
 
             repositoryLands
                 .getAll()
                 .flowOn(Dispatchers.IO)
-                .collect { lands ->
-                    itemsFlow.update {_ ->
-                        lands
-                    }
-                }
+                .collect {newItems->
+                itemsFlow.update { newItems }
+            }
         }
-//        itemsFlow.tryEmit(
-//            itemsRepository.toList()
-//        )
     }
+
     fun deleteItem(
         item                                : CLand?
     )
     {
         item?:return
 
-        //Проводим поиск по идентификатору,
-        //потому что просто удаление проверяет полное совпадение полей.
+        kotlinx.coroutines.MainScope().launch {
+            repositoryLands.delete(item)
+        }
+
+//        //Проводим поиск по идентификатору,
+//        //потому что просто удаление проверяет полное совпадение полей.
 //        val index                           = itemsRepository.indexOfFirst { tempItem -> tempItem.id == item.id}
 //        if (index<0)
 //            return
-
+//
 //        itemsRepository.removeAt(index)
 //        itemsFlow.tryEmit(itemsRepository.toList())
     }
@@ -117,13 +81,13 @@ class CViewModelLandList(
         type                                : String
     )
     {
-        val item                            = CLand(
-            id                              = id,
-            header                          = header,
-            price                           = price,
-            square                          = square,
-            type                            = type
-        )
+//        val item                            = CLand(
+//            id                              = id,
+//            header                          = header,
+//            price                           = price,
+//            square                          = square,
+//            type                            = type
+//        )
 //        val index                           = itemsRepository.indexOfFirst {tempItem ->tempItem.id==id }
 //        if (index<0)
 //        {

@@ -1,6 +1,5 @@
 package ru.psu.mobile.torgilands.ui.activitylanddetail
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -26,6 +25,8 @@ class CActivityLandDetails                  : AppCompatActivity() {
         //Настройка DataBinding.
         binding                             = ActivityLandDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // Specify the current activity as the lifecycle owner.
+        binding.lifecycleOwner              = this
 
         //Проверяем факт обработки переданных из предыдущей активности параметров.
         if (!viewModel.initilized.value) {
@@ -48,11 +49,11 @@ class CActivityLandDetails                  : AppCompatActivity() {
 
                 //Передаём начальные данные в модель представления.
                 viewModel.setItem(
-                    id                      = id,
-                    header                  = bundle.getString(getString(R.string.PARAM_HEADER), ""),
-                    type                    = bundle.getString(getString(R.string.PARAM_TYPE), ""),
-                    price                   = bundle.getDouble(getString(R.string.PARAM_PRICE)),
-                    square                  = bundle.getDouble(getString(R.string.PARAM_SQUARE))
+                    id                      = id//,
+//                    header                  = bundle.getString(getString(R.string.PARAM_HEADER), ""),
+//                    type                    = bundle.getString(getString(R.string.PARAM_TYPE), ""),
+//                    price                   = bundle.getDouble(getString(R.string.PARAM_PRICE)),
+//                    square                  = bundle.getDouble(getString(R.string.PARAM_SQUARE))
                 )
             }
         }
@@ -70,13 +71,13 @@ class CActivityLandDetails                  : AppCompatActivity() {
             //Если проверка пройдена успешно, данные сохранены,
             //тогда закрываем текущую активность и возвращаем введённые данные в предыдущую.
             //TODO В случае БД Room+Flow эта передача не требуется.
-            val data                        = Intent()
-            data.putExtra(getString(R.string.PARAM_ID),viewModel.land.value.id.toString())
-            data.putExtra(getString(R.string.PARAM_HEADER), viewModel.land.value.header)
-            data.putExtra(getString(R.string.PARAM_PRICE), viewModel.land.value.price)
-            data.putExtra(getString(R.string.PARAM_SQUARE), viewModel.land.value.square)
-            data.putExtra(getString(R.string.PARAM_TYPE), viewModel.land.value.type)
-            setResult(RESULT_OK,data)
+//            val data                        = Intent()
+//            data.putExtra(getString(R.string.PARAM_ID),viewModel.land.value.id.toString())
+//            data.putExtra(getString(R.string.PARAM_HEADER), viewModel.land.value.header)
+//            data.putExtra(getString(R.string.PARAM_PRICE), viewModel.land.value.price)
+//            data.putExtra(getString(R.string.PARAM_SQUARE), viewModel.land.value.square)
+//            data.putExtra(getString(R.string.PARAM_TYPE), viewModel.land.value.type)
+//            setResult(RESULT_OK,data)
             finish()
         }
         //Обработка нажатия кнопки "Отмена"
@@ -88,8 +89,8 @@ class CActivityLandDetails                  : AppCompatActivity() {
         //Подписываемся на возможные сообщения из ViewModel.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.message.collect {stringId->
-                    if (stringId<0)
+                viewModel.message.collect { stringId ->
+                    if (stringId < 0)
                         return@collect
                     //При получении информации о сообщении,
                     //выводим его на экран.
@@ -102,5 +103,6 @@ class CActivityLandDetails                  : AppCompatActivity() {
                 }
             }
         }
+
     }
 }
