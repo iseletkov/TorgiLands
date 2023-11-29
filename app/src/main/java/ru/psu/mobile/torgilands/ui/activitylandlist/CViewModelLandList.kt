@@ -3,11 +3,9 @@ package ru.psu.mobile.torgilands.ui.activitylandlist
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.psu.mobile.torgilands.model.CLand
@@ -47,7 +45,6 @@ class CViewModelLandList(
 
             repositoryLands
                 .getAll()
-                .flowOn(Dispatchers.IO)
                 .collect {newItems->
                 itemsFlow.update { newItems }
             }

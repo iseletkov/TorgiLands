@@ -98,6 +98,7 @@ class CActivityLandListClassic              : AppCompatActivity() {
             )
             intent.putExtra(getString(R.string.PARAM_ID), UUID.randomUUID().toString())
             resultLauncher.launch(intent)
+
         }
 
         //Подписываемся на изменение списка элементов.
