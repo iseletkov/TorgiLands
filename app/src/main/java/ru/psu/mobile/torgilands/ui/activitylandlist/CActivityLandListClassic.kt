@@ -98,6 +98,8 @@ class CActivityLandListClassic              : AppCompatActivity() {
             )
             intent.putExtra(getString(R.string.PARAM_ID), UUID.randomUUID().toString())
             resultLauncher.launch(intent)
+
+            viewModel.loadEmployees()
         }
 
         //Подписываемся на изменение списка элементов.

@@ -1,17 +1,13 @@
 package ru.psu.mobile.torgilands
 
 import android.app.Application
-import android.content.Context
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class CApplication : Application()
 {
-    companion object{
-        private lateinit var context : Context
 
-        fun getContext() : Context
-        {
-            return context
-        }
-    }
 
 }

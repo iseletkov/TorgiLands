@@ -23,6 +23,7 @@ class CViewModelLandList(
 {
     private val repositoryLands                 = CRepositoryLands(application)
 
+
     //Редактируемый список элементов с возможностью подписки на изменения
     //для внутреннего использования.
     private var itemsFlow                   = MutableStateFlow<List<CLand>>(
@@ -51,9 +52,20 @@ class CViewModelLandList(
                 .collect {newItems->
                 itemsFlow.update { newItems }
             }
+
+
         }
     }
-
+    fun loadEmployees()
+    {
+        kotlinx.coroutines.MainScope().launch {
+            repositoryLands
+                .getEmployees()
+                .collect { employee ->
+                    var a = employee.employee_name
+                }
+        }
+    }
     fun deleteItem(
         item                                : CLand?
     )
