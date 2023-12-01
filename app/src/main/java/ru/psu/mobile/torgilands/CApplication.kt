@@ -3,12 +3,14 @@ package ru.psu.mobile.torgilands
 import android.app.Application
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import io.minio.MinioClient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.psu.mobile.torgilands.services.CAdapterUUID
 import ru.psu.mobile.torgilands.services.IServiceAPILands
+
 
 class CApplication : Application()
 {
@@ -40,6 +42,11 @@ class CApplication : Application()
         val apiService: IServiceAPILands = retrofit
             .create(IServiceAPILands::class.java)
 
+
+        var minioClient = MinioClient.builder()
+            .endpoint("http://192.168.1.102:50101")
+            .credentials("torgi", "torgi123")
+            .build()
 
     }
 }

@@ -1,12 +1,16 @@
 package ru.psu.mobile.torgilands.ui.activitylandlist
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
+import ru.psu.mobile.torgilands.CApplication
 import ru.psu.mobile.torgilands.databinding.LandListItemBinding
 import ru.psu.mobile.torgilands.model.CLand
+
 
 // Инструкция Google по подключению RecyclerView
 //https://developer.android.com/develop/ui/views/layout/recyclerview
@@ -61,7 +65,30 @@ class CAdapterLandList
             item : CLand
         )
         {
-            itemBinding.land = item
+            //Нерабочий вариант с прямым доступом к min.io
+//            itemBinding.land = item
+//            CApplication.minioClient.getObject(
+//                GetObjectArgs.builder()
+//                    .bucket("torgilands")
+//                    .`object`(""+item.id+".png")
+//                    .build()
+//            ).use { stream ->
+//                val bitmap = BitmapFactory.decodeStream(stream)
+//                itemBinding.ImageViewPreview.setImageBitmap(bitmap)
+//            }
+            //Рабочий вариант со статической ссылкой.
+            kotlinx.coroutines.MainScope().launch {
+                val responseBody = CApplication
+                    .apiService
+                    .downloadFileWithDynamicUrlSync("https://cdn.nekosapi.com/images/original/517884e1-1960-41a6-93ab-09bcb0ab5f3f.webp")
+                responseBody.byteStream()
+                    .use{stream ->
+                        val bitmap = BitmapFactory.decodeStream(stream)
+                        itemBinding.ImageViewPreview.setImageBitmap(bitmap)
+                    }
+
+            }
+
         }
     }
 

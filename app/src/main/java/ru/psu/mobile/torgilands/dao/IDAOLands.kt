@@ -35,6 +35,9 @@ interface IDAOLands {
     @Insert(onConflict = REPLACE)
     suspend fun insert(land: CLand) //async
 
+    @Insert(onConflict = REPLACE)
+    suspend fun insertAll(lands: List<CLand>) //async
+
     @Update
     suspend fun update(land: CLand)
 
